@@ -27,7 +27,7 @@ export default class App extends Component {
     username: '',
     password: '',
     feedbackRender: "",
-    pointsTracker: "",
+    pointsTracker: 0,
     
     loginPage: 'block', 
     masterPage: 'none',
@@ -70,12 +70,12 @@ export default class App extends Component {
 
     if (tOrF) {
         this.setState({ 
-            pointsTracker: pointsTracker + 1,
-            feedbackRender: "Correct!",
+            pointsTracker: this.state.pointsTracker + 1,
+            
         })
     } else {
         this.setState({
-            feedbackRender: "Wrong!",
+            
         })
     }
 }
@@ -192,7 +192,7 @@ export default class App extends Component {
             <View style={{ display: this.state.logInPage }}>
               <View style={styles.logInStyle}>
                 <Text style={styles.title}>
-                  Limitless
+                  LimitLess
                 </Text>
                 <Text style={styles.logInTitle}>
                   Log In
@@ -303,31 +303,24 @@ export default class App extends Component {
               
                 </View>
               </ScrollView>
-
-                {/* <View style={styles.container}>
-                  <Text style={styles.title}>
-                    Hello {this.state.usernameReal}
-                  </Text> 
-                  <View style={styles.centerView}>
-                  <TextInput
-                    value={this.state.usernameReal}
-                    onChangeText={(usernameReal) => this.setState({usernameReal})}
-                    style={styles.textInput}
-                    placeholder={"Enter Username"}
-                  />
-                  </View>
-                </View> */}
               
-
               <View style={{ display: this.state.questionPage }}>
                 <View style={styles.container}>
-                    <Text style={styles.bigText}>
+                    <Text style={styles.bigTextQuestion}>
                       {question1}
                     </Text>
 
                     <View style={styles.answerContainer}>
                       <TouchableHighlight
-                          onPress={() => {this.selectAnswer({choice1})}}
+                          onPress={() => {
+                            this.selectAnswer({choice1})
+                            randNum = randomize(0, 115); 
+                            this.setState({ 
+                            questionNumber: randNum, 
+                            feedbackRender: "", 
+                        });
+                            }
+                          }
                       >
                           <View style={styles.answerButton}>
                             <Text style={styles.text}>
@@ -336,7 +329,15 @@ export default class App extends Component {
                           </View>
                       </TouchableHighlight>
                       <TouchableHighlight
-                          onPress={() => {this.selectAnswer({choice2})}}
+                          onPress={() => {
+                            this.selectAnswer({choice2})
+                            randNum = randomize(0, 115); 
+                            this.setState({ 
+                            questionNumber: randNum, 
+                            feedbackRender: "", 
+                        });
+                            }
+                          }
                       >
                           <View style={styles.answerButton}>
                               <Text style={styles.text}>
@@ -347,7 +348,15 @@ export default class App extends Component {
                     </View>
                     <View style={styles.answerContainer}>
                     <TouchableHighlight
-                          onPress={() => {this.selectAnswer({choice3})}}
+                          onPress={() => {
+                            this.selectAnswer({choice3})
+                            randNum = randomize(0, 115); 
+                            this.setState({ 
+                            questionNumber: randNum, 
+                            feedbackRender: "", 
+                        });
+                            }
+                          }
                       >
                           <View style={styles.answerButton}>
                             <Text style={styles.text}>
@@ -356,7 +365,15 @@ export default class App extends Component {
                           </View>
                       </TouchableHighlight>
                       <TouchableHighlight
-                          onPress={() => {this.selectAnswer({choice4})}}
+                          onPress={() => {
+                            this.selectAnswer({choice4})
+                            randNum = randomize(0, 115); 
+                            this.setState({ 
+                            questionNumber: randNum, 
+                            feedbackRender: "", 
+                        });
+                            }
+                          }
                       >
                           <View style={styles.answerButton}>
                               <Text style={styles.text}>
@@ -371,21 +388,7 @@ export default class App extends Component {
                     <Text style={styles.bigText}>
                         Points: {this.state.pointsTracker}
                     </Text>
-                    <TouchableHighlight
-                        onPress={() => {randNum = randomize(0, 115); // Generate a new random number
-                        this.setState({ 
-                        questionNumber: randNum, // Update the state with the new question number
-                        feedbackRender: "", // Reset feedback
-                        });
-                    }}
-                    >
-                        <View style={styles.answerButton}>
-                            <Text style={styles.text}>
-                              Next
-                            </Text>
-                        </View>
-                        
-                    </TouchableHighlight>
+                    
                     
                 </View>
               </View>
@@ -490,6 +493,12 @@ const styles = StyleSheet.create({
     color: '#F4EBE8',
     fontSize: deviceHeight / 45,
     fontFamily: 'arial',
+    fontWeight: "bold",
+  },
+  bigTextQuestion: {
+    color: "#F4EBE8",
+    fontSize: deviceHeight / 20,
+    margin: 10,
     fontWeight: "bold",
   },
   bigText: {
